@@ -1,0 +1,21 @@
+# mul r0, r1 --> r0 *= r1
+#     0x62, 0x00, # total = 0
+#     0x63, 0x00, # r3 = 0
+# #loop_top
+#     0x43, 0x40, # skip next if r3 == 64
+#     0x10, 0x18, # goto loop_end
+#     0x80, 0x16, # r0 >>= 1
+#     0x3F, 0x00, # skip next if carry == 0
+#     0x82, 0x14, # total += r1
+#     0x81, 0x1E, # r1 <<= 1
+#     0x73, 0x01, # r3 += 1
+#     0x10, 0X08, # goto loop_top
+
+acr r2, 0x0 # total = 0
+acr r3, 0x0 # r3 = 0
+LOOP_TOP:
+snec r3, 0x10 # skip next if r3 == 16
+goto LOOP_END
+shr r0, 0x1
+snec rF, 0x0
+add 
